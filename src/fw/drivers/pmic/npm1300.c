@@ -344,9 +344,9 @@ bool pmic_init(void) {
 
   // FIXME: this needs to be configurable at board level
 #ifdef CONFIG_BOARD_OBELIX
-  ok &= prv_write_register(PmicRegisters_ADC_ADCNTCRSEL, PmicRegisters_ADC_ADCNTCRSEL__ADCNTCRSEL_10K);
+  ok &= prv_write_register(PmicRegisters_ADC_ADCNTCRSEL, PmicRegisters_ADC_ADCNTCRSEL__ADCNTCRSEL_HIZ);
 
-  ok &= prv_write_register(PmicRegisters_BCHARGER_BCHGVTERM, PmicRegisters_BCHARGER_BCHGVTERM__BCHGVTERMNORM_4V35);
+  ok &= prv_write_register(PmicRegisters_BCHARGER_BCHGVTERM, PmicRegisters_BCHARGER_BCHGVTERM__BCHGVTERMNORM_4V20);
   ok &= prv_write_register(PmicRegisters_BCHARGER_BCHGVTERMR, PmicRegisters_BCHARGER_BCHGVTERMR__BCHGVTERMREDUCED_4V00);
 #elif defined(CONFIG_BOARD_GETAFIX)
   ok &= prv_write_register(PmicRegisters_ADC_ADCNTCRSEL, PmicRegisters_ADC_ADCNTCRSEL__ADCNTCRSEL_10K);
