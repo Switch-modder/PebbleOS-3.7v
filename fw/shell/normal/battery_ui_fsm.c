@@ -23,7 +23,7 @@
 // change in battery charge state, and when to automatically dismiss the status
 // modal window.
 
-#define MAX_TRANSITIONS 6
+#define MAX_TRANSITIONS 7
 
 typedef void (*EntryFunc)(void *);
 typedef void (*ExitFunc)(void);
@@ -79,7 +79,7 @@ static const BatteryUIState ui_states[] = {
        .exit = prv_dismiss_plugged,
        .next_state =
            {BatteryGood, BatteryWarning, BatteryLowPower, BatteryCritical, BatteryFullyCharged,
-            BatteryShutdownCharging}},
+            BatteryShutdownCharging, BatteryCharging}},
   [BatteryFullyCharged] =
       {.enter = prv_display_fully_charged,
        .exit = prv_dismiss_fully_charged,
@@ -188,15 +188,23 @@ static void prv_exit_critical(void) {
   modal_manager_set_min_priority(ModalPriorityMin);
 }
 
+static bool s_plugged_announced = false;
+
 static void prv_display_plugged(void *data) {
+  const uint8_t percent = pbl_ratio32_to_percent(((PreciseBatteryChargeState *)data)->charge_percent);
+  if (s_plugged_announced) {
+    battery_ui_update_plugged_percent(percent);
+    return;
+  }
+  s_plugged_announced = true;
   if (!do_not_disturb_is_active()) {
     vibes_short_pulse();
   }
-  const uint8_t percent = ratio32_to_percent(((PreciseBatteryChargeState *)data)->charge_percent);
   battery_ui_display_plugged(percent);
 }
 
 static void prv_dismiss_plugged(void) {
+  s_plugged_announced = false;
   battery_ui_dismiss_modal();
 }
 

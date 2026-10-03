@@ -147,6 +147,16 @@ void battery_ui_display_plugged(uint8_t percent) {
   prv_display_modal(stack, prv_update_ui_charging, &display_data);
 }
 
+void battery_ui_update_plugged_percent(uint8_t percent) {
+  if (!s_dialog) {
+    return; // dismissed or timed out, don't bring it back
+  }
+  BatteryChargingDisplayData display_data = {
+    .percent = percent,
+  };
+  prv_update_ui_charging(s_dialog, &display_data);
+}
+
 void battery_ui_display_fully_charged(void) {
   // If we're plugged in (charged), we want to alert the user of this,
   // but we don't want to overlay ourselves over anything they may have

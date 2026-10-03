@@ -33,3 +33,5 @@ void battery_ui_display_warning(uint32_t percent, BatteryUIWarningLevel warning_
 
 //! Dismiss the battery UI modal window.
 void battery_ui_dismiss_modal(void);
+
+void battery_ui_update_plugged_percent(uint8_t percent);
