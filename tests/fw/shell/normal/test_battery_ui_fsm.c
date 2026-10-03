@@ -366,3 +366,7 @@ void test_battery_ui_fsm__no_vibe_complete(void) {
   cl_assert(s_modal_onscreen && !s_modal_charging);
   cl_assert_equal_i(s_vibe_count, 1);
 }
+
+void battery_ui_update_plugged_percent(uint8_t percent) {
+  s_modal_percent = percent;
+}
