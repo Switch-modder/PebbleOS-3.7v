@@ -1,0 +1,14 @@
+/* SPDX-FileCopyrightText: 2024 Google LLC */
+/* SPDX-License-Identifier: Apache-2.0 */
+
+#include "prefs_syscalls.h"
+
+#include "syscall/syscall_internal.h"
+
+DEFINE_SYSCALL(UnitsDistance, sys_shell_prefs_get_units_distance, void) {
+  return shell_prefs_get_units_distance();
+}
+
+DEFINE_SYSCALL(GColor, sys_shell_prefs_get_theme_highlight_color, void) {
+  return shell_prefs_get_theme_highlight_color();
+}
