@@ -118,10 +118,10 @@ static void prv_text_size_menu_push(SettingsDisplayData *data) {
 // Intensity Settings
 /////////////////////////////
 
-static const uint32_t s_intensity_values[] = {10, 25, 50, 100};
+static const uint32_t s_intensity_values[] = {5, 10, 25, 50, 100};
 
 static const char *s_intensity_labels[] = {
-  i18n_noop("Low"), i18n_noop("Medium"), i18n_noop("High"), i18n_noop("Blinding")
+  i18n_noop("Extra Low"), i18n_noop("Low"), i18n_noop("Medium"), i18n_noop("High"), i18n_noop("Blinding")
 };
 
 #define BACKLIGHT_SCALE_GRANULARITY 5
