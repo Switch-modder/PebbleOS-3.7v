@@ -697,6 +697,7 @@ static void prv_handle_dark_mode_change(PebbleEvent *event, void *context) {
   }
   weather_report_handle_dark_mode_change();
   clock_face_handle_dark_mode_change();
+  globe_view_handle_dark_mode_change(data->globe_view);
 }
 
 static PBL_NOINLINE void prv_init(void) {

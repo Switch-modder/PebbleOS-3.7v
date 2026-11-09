@@ -171,3 +171,8 @@ void globe_view_slide_out_right(GlobeView *view);
 void globe_view_pop(GlobeView *view);
 
 void globe_view_dismiss(GlobeView *view, bool animated);
+
+/**
+ * Recolor the cradle
+ */
+void globe_view_handle_dark_mode_change(GlobeView *view);

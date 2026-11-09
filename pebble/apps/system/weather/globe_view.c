@@ -712,7 +712,7 @@ static void draw_intro_world_frame(GContext *ctx, GlobeView *view, GPoint origin
 static void draw_cradle(GContext *ctx, GlobeView *view, GPoint origin, GSize frame_size) {
   (void)frame_size;
   graphics_context_set_antialiased(ctx, false);
-  graphics_context_set_fill_color(ctx, GColorBlack);
+  graphics_context_set_fill_color(ctx, system_theme_get_fg_color());
   const int acx = GLOBE_CRADLE_ARM_CENTER_X * GLOBE_CRADLE_SCALE_PCT / 100;
   const int acy = GLOBE_CRADLE_ARM_CENTER_Y * GLOBE_CRADLE_SCALE_PCT / 100;
   const int aor = GLOBE_CRADLE_ARM_OUTER_RADIUS * GLOBE_CRADLE_SCALE_PCT / 100;
@@ -1090,6 +1090,7 @@ static void ensure_visual_resources(GlobeView *view) {
 
   if (!view->cradle_pdc) {
     view->cradle_pdc = gdraw_command_image_create_with_resource(RESOURCE_ID_GLOBE_CRADLE_PDC);
+    weather_recolor_pdc_image_for_dark_mode(view->cradle_pdc);
   }
 
 #if GLOBE_SMALL_RECT
@@ -3769,6 +3770,16 @@ void globe_view_set_current_location(GlobeView *view, const char *label, int16_t
                             view->transition_color_target_longitude_e2);
       reload_current_frame(view);
     }
+  }
+}
+
+void globe_view_handle_dark_mode_change(GlobeView *view) {
+  if (!view)
+    return;
+
+  weather_invert_pdc_image(view->cradle_pdc);
+  if (view->canvas_layer) {
+    layer_mark_dirty(view->canvas_layer);
   }
 }
 
